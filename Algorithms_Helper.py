@@ -77,62 +77,6 @@ class my_algorithms:
             
         return A
     
-    def insertion_sort(self, A):
-        
-        '''
-        Sort an Array using Insertion Sort.
-        
-        Args:
-            - A(list) - A sequence of integers to be sorted.
-            
-        Returns:
-            - A(list) - An ordered sequence.
-        '''
-        # Raise error if A is not a list
-        if isinstance(A, list) == False:
-            raise TypeError('The input has to be a list!!!')
-        else:
-            self.A = A
-        
-        # Iterate through the array, starting from the third item
-        for j in range(2, len(A)):
-            
-            # i is always one index lower than j
-            # So A[j] will always be bigger than A[i], IF the array is sorted.
-            key = A[j]
-            i = j - 1
-            
-            # go though the array, and while A[i] is bigger than A[j], move A[i] one spot to the left.
-            # Keep doing it until A[j] is bigger than A[i]
-            while i > 0 and A[i] > key:
-                A[i + 1] = A[i]
-                i = i - 1
-                
-            # Set A[i] to be the index after A[j](i.e skip the part of the array that we already sorted).    
-            A[i + 1] = key
-            
-        return A
-    
-    
-    def insertion_sort_desc(self, a):
-        
-        self.a = a
-  
-        # traversing the array from 1 to length of array(a)
-        for i in range(1, len(self.a)):
-
-            temp = self.a[i]
-
-            # Shift elements of array[0 to i-1], that are
-            # greater than temp, to one position ahead
-            # of their current position
-            j = i-1
-            while j >=0 and temp > self.a[j] :
-                    self.a[j+1] = self.a[j]
-                    j -= 1
-            self.a[j+1] = temp
-            
-        return self.a
     
     def binarySearch(self, nums, target):
         
@@ -202,6 +146,24 @@ class my_algorithms:
         for i in self.data:
             if i == self.target:
                 return i
+
+    def find_min_value(self, data):
+        '''
+        Create variable called min_index and set it to the first position.
+        Iterate through the list, if a value is smaller than min_index
+        Then min_index = value
+        '''
+
+        self.data = data
+
+        min_index = data[0]
+
+        for i in range(len(data)):
+
+            if data[i] < min_index:
+                min_index = data[i]
+
+        return min_index
     
   
     
