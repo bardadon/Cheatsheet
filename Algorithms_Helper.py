@@ -164,6 +164,124 @@ class my_algorithms:
                 min_index = data[i]
 
         return min_index
+
+    def improved_selection_sort(self,data):
+
+        '''
+        Find smallest element.
+        Exchange it with the first item in the array.
+
+        Find the second smallest element.
+        Exchange it with the second item in the array.
+
+        Continue until array is sorted
+        '''
+
+        self.data = data
+
+        for i in range(len(data)-1):
+            min_index = i
+
+            for j in range(i+1, len(data)):
+
+                if data[j] < data[min_index]:
+                    min_index = j
+
+            data[i], data[min_index] = data[min_index], data[i]
+
+        return data
+
+
+    def selection_sort(self, data):
+        '''
+        Find smallest element.
+        Exchange it with the first item in the array.
+
+        Find the second smallest element.
+        Exchange it with the second item in the array.
+
+        Continue until array is sorted
+        '''
+        self.data = data
+
+        original_data = self.data
+        
+        def find_min_value(data):
+
+            min_index = data[0]
+
+            for i in range(len(data)):
+
+                if data[i] < min_index:
+                    min_index = data[i] 
+
+            return min_index
+
+
+        def find_index(data, value):
+
+            for i in range(len(data)):
+                if data[i] == value:
+                    return i
+            return None           
+
+        min_value = find_min_value(data)
+        min_index = find_index(data, min_value)
+        first_item = data[0]  
+        data[0] = min_value
+        data[min_index] = first_item
+
+        print(data)
+
+        for i in range(1,len(data)):
+
+            print(f'\ni: {i}')
+            print(f'Full data: {data}')
+            print(f'data to process: {data[i:len(data)]}')
+
+            min_value = find_min_value(data[i:len(data)])
+            print(f'min_value: {min_value}')
+
+            min_index = find_index(data, min_value)
+            print(f'min_index: {min_index}')
+
+            item = data[i]  
+
+            data[i] = min_value
+            print(f'data[{i}]: {data[i]}')
+            data[min_index] = item
+
+
+        print('\nDone')
+        print(f'Original Array is: {original_data}')
+        print(f'Sorted Array is: {data}')
+
+        return data
+
+    def the_change_problem(self, change, target):
+
+        '''
+        Find the min number of coins from a set.
+        The sum of coints needs to add up to the target
+        '''
+
+        self.change = change
+        self.target = target
+
+        coin_list = []
+        i = len(change) - 1
+
+        while sum(coin_list) != target and i > 0:
+
+            if change[i] <= target:
+                coin_list.append(change[i])
+                target = target - change[i]
+            else:
+                i -= 1
+                
+        return coin_list
+
+
     
   
     
