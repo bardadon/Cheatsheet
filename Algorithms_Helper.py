@@ -78,31 +78,29 @@ class my_algorithms:
         return A
     
     
-    def binarySearch(self, nums, target):
-        
-        self.nums = nums
+    def binary_search(self, data, target):
+
+        self.data = data
         self.target = target
-        
-        """
-        :type nums: List[int] -- Must be sorted from left to right
-        :type target: int
-        :rtype: int
-        """
-        if len(self.nums) == 0:
+
+        if len(data) == 0:
             return -1
+        
+        left, right = 0, len(data)-1 
+        mid = (left + right) // 2
 
-        left, right = 0, len(self.nums) - 1
-        while left <= right:
+        while data[mid] != target:
+
+            # move left or right index according the location of mid
+            if target > data[mid]:
+                left = mid
+            elif target < data[mid]:
+                right = mid
+
+            # Calculate the new mid
             mid = (left + right) // 2
-            if self.nums[mid] == self.target:
-                return mid
-            elif self.nums[mid] < self.target:
-                left = mid + 1
-            else:
-                right = mid - 1
 
-        # End Condition: left > right
-        return -1
+        return data[mid]
 
     def binarySearch_temp2(self, nums, target):
 
@@ -282,6 +280,87 @@ class my_algorithms:
         return coin_list
 
 
+    def find_it(self, seq):
+
+        '''
+        Find the number that appears an odd number of times.
+        There will always be one one.
+        Args:
+            - seq(list) - A list of numbers.
+        Returns:
+            - key(int) - Key of hte number that appeares an odd num of times.
+        '''
+
+        self.seq = seq
+
+        dict_counter = dict()
+
+        # Create a dictionary and count appearances
+        for i in seq:
+            if i in dict_counter:
+                dict_counter[i] += 1
+            else:
+                dict_counter[i] = 1
+
+        # If a value in the dictionary is odd, return its key
+        for key, value in dict_counter.items():
+
+            if value % 2 == 1:
+                return key
+
+    def tribonacci(self, signature, n):
+    
+        '''
+        Given a list of three items, return a tribonacci array of size n.
+        Tribonacci Array = each item is equal to the sum of the previous three items.
+        '''
+        self.signature = signature
+        self.n = n
+        
+        # Edge Cases
+        if n == 0 or len(signature) < 3:
+            return []
+        
+        if n < len(signature):
+            return signature[0:n]
+        
+        tri_sequence = signature
+
+        # Stop when the tribonnacci array reaches the requested size(n)
+        while len(tri_sequence) < n:
+
+            # Calculate next_item and append to array
+            next_item = signature[len(tri_sequence) - 3] + signature[len(tri_sequence) - 2] + signature[len(tri_sequence) - 1]
+            tri_sequence.append(next_item)
+
+        return tri_sequence
+
+    def two_sum(self, data, target):
+
+        '''
+        Return the indices of two items.
+        The sum of the two items should equal to target.
+        
+        Args:
+            - data(list) 
+            - target(int)
+        Returns:
+            - indices(list)
+        '''
+
+        self.data = data
+        self.target = target
+
+        indices = []
+
+        for i in range(len(data)):
+            for j in range(len(data)):
+
+                if data[i] + data[j] == target and i != j:
+                    indices.append((i,j))
+
+        return indices
+        
     
   
     
