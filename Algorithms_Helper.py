@@ -1,3 +1,5 @@
+from functools import lru_cache
+
 class my_algorithms:
     
     def __init__(self):
@@ -360,8 +362,162 @@ class my_algorithms:
                     indices.append((i,j))
 
         return indices
+
+    def quick_sort(self,data):
+
+        '''
+        Sort an Array using Quick Sort.
+        Args:
+            - data(List) - A sequence of integers.
+        Returns:
+            - data(List) - An ordered sequence of integers.
+        '''
+
+        self.data = data
+
+        less = []
+        same = []
+        more = []
+
+        if len(data) <= 1:
+            return data
+
+        mid = len(data) // 2
+
+        # Create three lists:
+        ## 1. less = numbers less than mid
+        ## 2. same = numbers same as mid
+        ## 3. more = numbers more than mid
+        for i in range(len(data)):
+
+            if data[i] < data[mid]:
+                less.append(data[i])
+            elif data[i] > data[mid]:
+                more.append(data[i])
+            else:
+                same.append(data[i])
+
+        # Recursion - reorder the list(less --> same --> more) recursivly 
+        return self.quick_sort(less) + same + self.quick_sort(more)
         
-    
+    def fibonnaci_series(self, n):
+
+        '''
+        Create a fibonnaci series of size n.
+        Args:
+            - n(Int) - Size of the series.
+        Returns
+            - fib(List) - Fibonnaci Series.
+        '''
+        self.n =n
+
+        if n == 0:
+            return 0
+
+        if n == 1:
+            return [0,1]
+
+        fib = [0,1]
+        
+        # Item = sum of the last two items
+        for i in range(2,n+1):
+            item = fib[i-2] + fib[i-1]
+            fib.append(item)
+
+        return fib
+
+    def fibonnaci(self, n):
+
+        '''
+        Returning the nth item of a fibonnaci series using Memoization.
+        
+        Args:
+            - n(Int)
+        Returns
+            - n_item(Int) - The nth item in the series.
+        '''
+        self.n = n
+        if n == 0:
+            return 0
+        
+        if n == 1 :
+            return 1
+
+        # Calculating the nth item
+        n_item = self.fibonnaci(n-2) + self.fibonnaci(n-1)
+        return n_item
+
+    @lru_cache
+    def fibonnaci_withCache(self, n):
+
+        '''
+        Returning the nth item of a fibonnaci series using Memoization.
+        Use functools.iru_cache to cache the previous calculations.
+        
+        Args:
+            - n(Int)
+        Returns
+            - n_item(Int) - The nth item in the series.
+        '''
+
+        self.n = n
+
+        if n == 0:
+            return 0
+        
+        if n == 1:
+            return 1
+
+        n_item = self.fibonnaci_withCache(n-2) + self.fibonnaci_withCache(n-1)
+        return n_item
+
+    def fibonnaci_withCacheManual(self, n, cache=None):
+
+        '''
+        Returning the nth item of a fibonnaci series using Memoization.
+        Use a dictionary to cache the previous calculations.
+        
+        Args:
+            - n(Int)
+        Returns
+            - n_item(Int) - The nth item in the series.
+        '''
+        self.n = n
+        self.cache = cache
+
+        if cache==None:
+            cache = {}
+
+        if n in cache:
+            return cache[n]
+        
+        if n == 0 or n == 1:
+            return n
+        
+        n_item = self.fibonnaci_withCacheManual(n-1,cache) + self.fibonnaci_withCacheManual(n-2, cache)
+        cache[n] = n_item
+
+        return n_item
+   
+
+    def fibonnci_tabulate(self, n):
+        '''
+        Returning the nth item of a fibonnaci series using Tabulation.
+        Use a List to store results from the bottom-up.
+        
+        Args:
+            - n(Int)
+        Returns
+            - n_item(Int) - The nth item in the series.
+        '''
+        self.n = n
+
+        base_case = [0,1]
+
+        for i in range(2, n+1):
+            base_case.append(self.fibonnci_tabulate(i-2) + self.fibonnci_tabulate(i-1))
+
+        return base_case[n]
   
     
 class leetcode:
