@@ -1,0 +1,45 @@
+version: "3.7"
+services:
+  # Define the Airflow service
+  airflow:
+    image: puckel/docker-airflow:1.10.10
+    ports:
+      - "8080:8080"
+    environment:
+      - LOAD_EX=y
+      - FERNET_KEY=<SECRET_KEY>
+    volumes:
+      - ./dags:/usr/local/airflow/dags
+      - ./logs:/usr/local/airflow/logs
+
+  # Define the Python service
+  python:
+    image: python:3.8
+    volumes:
+      - ./code:/code
+
+  # Define the Spark service
+  spark:
+    image: spark:3.0.1-hadoop3.2
+    volumes:
+      - ./code:/code
+
+  # Define the PostgreSQL service
+  postgres:
+    image: postgres:12.4
+    environment:
+      - POSTGRES_USER=airflow
+      - POSTGRES_PASSWORD=airflow
+      - POSTGRES_DB=airflow
+    ports:
+      - "5432:5432"
+
+  # Define the MySQL service
+  mysql:
+    image: mysql:8.0
+    environment:
+      - MYSQL_USER=airflow
+      - MYSQL_PASSWORD=airflow
+      - MYSQL_DATABASE=airflow
+    ports:
+      - "3306:3306"
