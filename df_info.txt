@@ -1,0 +1,20 @@
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 800 entries, 0 to 799
+Data columns (total 13 columns):
+ #   Column      Non-Null Count  Dtype 
+---  ------      --------------  ----- 
+ 0   #           800 non-null    int64 
+ 1   Name        800 non-null    object
+ 2   Type 1      800 non-null    object
+ 3   Type 2      414 non-null    object
+ 4   Total       800 non-null    int64 
+ 5   HP          800 non-null    int64 
+ 6   Attack      800 non-null    int64 
+ 7   Defense     800 non-null    int64 
+ 8   Sp. Atk     800 non-null    int64 
+ 9   Sp. Def     800 non-null    int64 
+ 10  Speed       800 non-null    int64 
+ 11  Generation  800 non-null    int64 
+ 12  Legendary   800 non-null    bool  
+dtypes: bool(1), int64(9), object(3)
+memory usage: 75.9+ KB
