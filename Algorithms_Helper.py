@@ -1,4 +1,6 @@
 from functools import lru_cache
+from pyspark.sql import SparkSession, Row
+from pyspark import SparkContext
 
 class my_algorithms:
     
@@ -518,7 +520,154 @@ class my_algorithms:
             base_case.append(self.fibonnci_tabulate(i-2) + self.fibonnci_tabulate(i-1))
 
         return base_case[n]
-  
+
+
+class codewars:
+
+    def __init__(self):
+        pass
+
+    def maskify(self, number:str) -> str:
+
+        '''
+        Replace all the items with '#' except for the last four items.
+        '''
+
+        self.number = number
+
+        if len(number) < 4:
+            return number
+
+        last_four_digits = number[-4:]
+        prefix = '#' * (len(number) - 4)
+
+        new_number = prefix + last_four_digits
+
+        return new_number 
+
+    def maskify_spark(self, input):
+
+        '''
+        Replace all the items with '#' except for the last four items.
+        '''
+
+        self.input = input
+
+        # Create a spark session
+        spark = SparkSession.builder.master('local').getOrCreate()
+
+        # Create an RDD from the input
+        rdd = spark.sparkContext.parallelize([input])
+
+        # Flatten the rdd - '12' --> [1,2]
+        flat_rdd = rdd.flatMap(lambda x: x)
+
+        # Replace all chars with '#' except for the last four digits
+        def replace_characters(char):
+
+            if input.index(char) < (len(input) - 4):
+                return '#'
+            else:
+                return char
+
+        hash_rdd = flat_rdd.map(replace_characters)
+
+        # Concat the solution: [#, #, 1,2] --> '##12'
+        solution = ''.join(hash_rdd.collect())
+
+        return solution
+
+
+    def count_sheeps(self, sheep):
+
+        '''
+        Count the number of True values in a list. 
+        Any character can be in the list.
+        '''
+        
+        self.sheep = sheep
+
+        number_of_ships = 0
+
+        for i in sheep:
+
+            if '__int__' in dir(i) and i > 0:
+                number_of_ships += 1
+
+        return number_of_ships
+
+    def count_sheeps_spark(self, input):
+
+        '''
+        Count the number of True values in a list. 
+        Any character can be in the list.
+        '''
+
+        self.input = input
+
+        # Create a spark session
+        spark = SparkSession.builder.master('local').getOrCreate()
+
+        # Create an rdd
+        rdd = spark.sparkContext.parallelize(input)
+
+        def convert_items(item):
+
+            '''
+            Convert items to either 1 or 0.
+            '''
+            
+            if '__int__' in dir(item) and item > 0:
+                return 1
+            else:
+                return 0
+
+        # Convert items to 1 or 0
+        counter_rdd = rdd.map(convert_items)
+
+        # Sum the list
+        solution = counter_rdd.reduce(lambda x1, x2: x1 + x2 )
+
+        return solution
+
+
+    def count_sheeps_sparkSQL(self, input):
+
+        '''
+        Count the number of True values in a list. 
+        Any character can be in the list.
+        '''
+
+        self.input = input
+        
+        # Create a spark session
+        spark = SparkSession.builder.master('local').getOrCreate()
+
+        # Create an rdd
+        rdd = spark.sparkContext.parallelize(input)
+
+        def mapper(item):
+            return Row(
+                    Sheep = item
+            )
+        # Turn the items in the rdd to Rows
+        new_rdd = rdd.map(mapper)
+
+        # Create a dataframe and a temp view
+        df = spark.createDataFrame(new_rdd)
+        df.createOrReplaceTempView('sheeps')
+
+        # Query to data
+        # If a sheep is true, set it to 1, otherwise 0
+        # Sum the array of 1's and 0's
+        query = '''
+        select sum(if(Sheep, 1, 0)) as number_of_ships
+        from sheeps;
+        '''
+
+        results = spark.sql(query)
+        results.show()
+        return results
     
 class leetcode:
     
