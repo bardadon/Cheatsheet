@@ -143,6 +143,7 @@ services:
       # See https://airflow.apache.org/docs/docker-stack/entrypoint.html#signal-propagation
       DUMB_INIT_SETSID: "0"
     restart: always
+    CMD: mkdir /opt/airflow/data
     volumes:
       - airflow_worker:/opt/airflow/data
     depends_on:
