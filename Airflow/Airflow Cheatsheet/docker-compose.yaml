@@ -143,14 +143,10 @@ services:
       # See https://airflow.apache.org/docs/docker-stack/entrypoint.html#signal-propagation
       DUMB_INIT_SETSID: "0"
     restart: always
-    volumes:
-      - airflow_worker:/opt/airflow/data
     depends_on:
       <<: *airflow-common-depends-on
       airflow-init:
         condition: service_completed_successfully
-    entrypoint: ['bash', '-c', 'mkdir', '/opt/airflow/data']
-
 
   airflow-triggerer:
     <<: *airflow-common
@@ -280,9 +276,3 @@ services:
 
 volumes:
   postgres-db-volume:
-  airflow_worker:
-    driver: local
-    driver_opts:
-      type: 'none'
-      o: 'bind'
-      device: airflow_worker/data
