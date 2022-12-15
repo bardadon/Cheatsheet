@@ -143,16 +143,13 @@ services:
       # See https://airflow.apache.org/docs/docker-stack/entrypoint.html#signal-propagation
       DUMB_INIT_SETSID: "0"
     restart: always
-    command:
-      - bash
-      - mkdir
-      - /opt/airflow/data
     volumes:
       - airflow_worker:/opt/airflow/data
     depends_on:
       <<: *airflow-common-depends-on
       airflow-init:
         condition: service_completed_successfully
+    entrypoint: ['bash', '-c', 'mkdir', '/opt/airflow/data']
 
 
   airflow-triggerer:
