@@ -1,0 +1,31 @@
+/* Add some padding and margin to the button to create space between elements */
+button {
+  padding: 10px;
+  margin: 10px;
+}
+
+/* Change the width of the button to fit the content */
+button {
+  width: 80px;
+}
+
+/* Change the background color and text color of the button */
+button {
+  background-color: blue;
+  color: white;
+}
+
+/* Add a border to the button */
+button {
+  border: 2px solid black;
+}
+
+/* Change the font size of the button */
+button {
+  font-size: 20px;
+}
+
+/* Add a hover effect to the button */
+button:hover {
+  background-color: red;
+}

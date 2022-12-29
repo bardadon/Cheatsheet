@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+{% block content %}
+  <h1>Select a Currency Pair</h1>
+  <p>Please select a currency pair from the list below to view its stats report:</p>
+
+  {% for batch in symbols | batch(3) %}
+    <div class="container">
+      {% for symbol in batch %}
+        <a href="/symbols/{{ symbol }}"><button>{{ symbol }}</button></a>
+      {% endfor %}
+    </div>
+  {% endfor %}
+
+{% endblock %}
