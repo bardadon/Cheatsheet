@@ -1,0 +1,28 @@
+digraph "Investing Platform" {
+	graph [fontcolor="#2D3436" fontname="Sans-Serif" fontsize=15 label="Investing Platform" nodesep=0.60 pad=2.0 rankdir=LR ranksep=0.75 splines=ortho]
+	node [fixedsize=true fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13 height=1.4 imagescale=true labelloc=b shape=box style=rounded width=1.4]
+	edge [color="#7B8894"]
+	"9c9ea23c195f4e33ac76653d3471c89c" -> b918cb48a4f44eeba85ad7d182ca0c98 [dir=none fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13 style=dashed]
+	b918cb48a4f44eeba85ad7d182ca0c98 -> "68d3b78e2d4e497c85ace3824565fd46" [dir=none fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13 style=dashed]
+	subgraph "cluster_Airflow Orchestrator" {
+		graph [bgcolor="#E5F5FD" fontname="Sans-Serif" fontsize=12 label="Airflow Orchestrator" labeljust=l pencolor="#AEB6BE" rankdir=LR shape=box style=rounded]
+		"9c9ea23c195f4e33ac76653d3471c89c" [label="" height=0.5 image="/usr/local/lib/python3.10/dist-packages/resources/onprem/workflow/airflow.png" shape=none width=1]
+		b918cb48a4f44eeba85ad7d182ca0c98 [label="" height=0.5 image="/usr/local/lib/python3.10/dist-packages/resources/onprem/workflow/airflow.png" shape=none width=1]
+		"68d3b78e2d4e497c85ace3824565fd46" [label="" height=0.5 image="/usr/local/lib/python3.10/dist-packages/resources/onprem/workflow/airflow.png" shape=none width=1]
+	}
+	"57aa7ed0d1454883a2916ca38dd3e848" -> eadb41a52cdd416480f461674f699bf7 [label=Extract dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"57aa7ed0d1454883a2916ca38dd3e848" -> a694fef9f14c4e5e9effb3f76588f3e7 [label=Extract dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	eadb41a52cdd416480f461674f699bf7 -> "028bff880c9a4374b575fa3d02de0973" [label=Load dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	a694fef9f14c4e5e9effb3f76588f3e7 -> "028bff880c9a4374b575fa3d02de0973" [label=Load dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	subgraph "cluster_Docker Containers" {
+		graph [bgcolor="#E5F5FD" fontname="Sans-Serif" fontsize=12 label="Docker Containers" labeljust=l pencolor="#AEB6BE" rankdir=LR shape=box style=rounded]
+		"57aa7ed0d1454883a2916ca38dd3e848" [label="Fixer.io
+(Forex Rates)" height=2 image="/usr/local/lib/python3.10/dist-packages/resources/onprem/compute/server.png" shape=none width=1]
+		eadb41a52cdd416480f461674f699bf7 [label="Python
+(Transform)" height=2 image="/usr/local/lib/python3.10/dist-packages/resources/programming/language/python.png" shape=none width=1]
+		a694fef9f14c4e5e9effb3f76588f3e7 [label="Python
+(Transform)" height=2 image="/usr/local/lib/python3.10/dist-packages/resources/programming/language/python.png" shape=none width=1]
+		"028bff880c9a4374b575fa3d02de0973" [label=Postgres height=2 image="/usr/local/lib/python3.10/dist-packages/resources/onprem/database/postgresql.png" shape=none width=1]
+		fa0582ef48294e3cbc276d27f88ab3ac [label=Docker height=1 image="/usr/local/lib/python3.10/dist-packages/resources/onprem/container/docker.png" shape=none width=1]
+	}
+}
