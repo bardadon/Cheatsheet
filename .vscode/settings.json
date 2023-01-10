@@ -4,5 +4,18 @@
     ],
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true,
-    "python.analysis.typeCheckingMode": "off"
+    "python.analysis.typeCheckingMode": "off",
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "192.168.86.245",
+            "port": 5432,
+            "askForPassword": true,
+            "driver": "PostgreSQL",
+            "name": "backup",
+            "database": "dvdrental",
+            "username": "postgres",
+            "connectionTimeout": 30
+        }
+    ]
 }
